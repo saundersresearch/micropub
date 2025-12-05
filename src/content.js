@@ -13,11 +13,13 @@ import HTTP from './HTTPResponse.js'
 // default: timestamp
 export const generateSlug = (type, jf2, prefix) => {
 	let slug = []
-	if ('article' != type && !jf2['mp-slug'] && prefix) slug.push(prefix)
+	if ('article' != type && !jf2['mp-slug'] && 'checkin' != type && prefix) slug.push(prefix)
 	if (jf2['mp-slug']) {
 		slug.push(jf2['mp-slug'])
 	} else if (jf2.name) {
 		slug.push(jf2.name)
+	} else if ('checkin' == type && jf2.published) {
+		slug.push(Math.round(new Date(jf2.published).getTime() / 1000))
 	} else {
 		const cite = jf2['watch-of'] || jf2['read-of'] || jf2['listen-of'] || jf2['play-of']
 		if (cite?.name) slug.push(cite.name)

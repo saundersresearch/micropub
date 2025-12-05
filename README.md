@@ -172,6 +172,7 @@ The current supported post types are:
 * [rsvp](https://indieweb.org/rsvp)
 * [watch](https://indieweb.org/watch)
 * [reply](https://indieweb.org/reply)
+* [checkin](https://indieweb.org/checkin)
 
 > **Note:** If a post does not fit under a specific type, it will default to be
 of type `note`.

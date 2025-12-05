@@ -56,6 +56,10 @@ describe('postTypes', () => {
 		assert.equal(postTypes({ 'content': 'lorem ipsum' }), 'note')
 	})
 
+	it('is checkin', () => {
+		assert.equal(postTypes({ 'checkin': 'some location' }), 'checkin')
+	}
+
 	it('is not valid', () => {
 		assert.ok(!postTypes())
 		assert.ok(!postTypes({}))
