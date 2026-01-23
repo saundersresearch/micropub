@@ -32,4 +32,17 @@ export default {
 	formatSlug: (type = 'note', slug) => `${type}/${slug}`,
 	formatFilename: (dir = 'src', slug) => `${dir.replace(/\/$/, '')}/${slug}.md`,
 	mediaFilename: (dir = 'uploads', filename) => !filename ? null : `${dir.replace(/\/$/, '')}/${Math.round(new Date() / 1000)}_${filename}`,
+	urlToFilename: (urlString, me = '', dir = '') => {
+		try {
+			const url = new URL(urlString)
+			if (url.origin !== me.replace(/\/$/, '') || !url.pathname) return
+			const safeDir = typeof dir === 'string' ? dir : ''
+			return [
+				safeDir.replace(/^\/|\/$/g, ''),
+				url.pathname.replace(/^\/|\/$/g, ''),
+			].filter(Boolean).join('/') + '.md'
+		} catch (err) {
+			console.error(err?.message || 'Invalid URL:', urlString)
+		}
+	}
 }

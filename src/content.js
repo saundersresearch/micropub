@@ -2,7 +2,7 @@ import { mf2tojf2 } from '@paulrobertlloyd/mf2tojf2'
 import { toFrontmatter, translateProperties, parseFrontmatter, toMf2 } from './frontmatter.js'
 import { postTypes } from './postTypes.js'
 import { addProperties, deleteProperties, updateProperties } from './mf2.js'
-import { slugify, getPageTitle, urlToFilename } from './utils.js'
+import { slugify, getPageTitle } from './utils.js'
 import HTTP from './HTTPResponse.js'
 
 // prefix is usually a timestamp
@@ -29,7 +29,7 @@ export const generateSlug = (type, jf2, prefix) => {
 }
 
 export const getPost = async (url, opts) => {
-	let filename = urlToFilename(url, opts.me, opts.contentDir)
+	let filename = opts.urlToFilename(url, opts.me, opts.contentDir)
 	if (!filename) HTTP.BAD_REQUEST.throw(`${url} is not valid`)
 	const post = await opts.store.getFile(filename)
 	if (!post) HTTP.NOT_FOUND.throw(`${filename} does not exist`)
