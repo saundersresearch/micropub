@@ -32,7 +32,7 @@ export const translateProperties = (data, reverse) => {
 		delete properties.published
 		}
 	}
-
+	console.log('Translated properties:', properties)
 	return properties
 }
 
