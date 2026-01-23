@@ -25,8 +25,9 @@ export const urlToFilename = (urlString, me = '', dir = '') => {
 	try {
 		const url = new URL(urlString)
 		if (url.origin !== me.replace(/\/$/, '') || !url.pathname) return
+		const safeDir = typeof dir === 'string' ? dir : ''
 		return [
-			dir.replace(/^\/|\/$/g, ''),
+			safeDir.replace(/^\/|\/$/g, ''),
 			url.pathname.replace(/^\/|\/$/g, ''),
 		].filter(Boolean).join('/') + '.md'
 	} catch (err) {
