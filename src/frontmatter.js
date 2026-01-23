@@ -18,20 +18,14 @@ export const translateProperties = (data, reverse) => {
 		properties[dictionary[key] || key] = value
 	}
 
-	// Flip published/deleted boolean values
-	if (!reverse) {
-		if (Array.isArray(properties.deleted) && properties.deleted.includes(true)) {
-		properties.published = [false]
-		delete properties.deleted
-		}
-	}
+	// Need to flip the published/deleted boolean value
+	if (Array.isArray(properties.published)) {
+    	properties.published = [!properties.published[0]]
+  	}
+	if (Array.isArray(properties.deleted)) {
+		properties.deleted = [!properties.deleted[0]]
+  	}
 
-	if (reverse) {
-		if (Array.isArray(properties.published) && properties.published.includes(false)) {
-		properties.deleted = [true]
-		delete properties.published
-		}
-	}
 	console.log('Translated properties:', properties)
 	return properties
 }
