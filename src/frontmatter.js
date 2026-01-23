@@ -17,6 +17,20 @@ export const translateProperties = (data, reverse) => {
 	for (let [key, value] of Object.entries(data)) {
 		properties[dictionary[key] || key] = value
 	}
+
+    // Want to map deleted: true --> published: false and vise versa
+    if (!reverse) {
+        if (Array.isArray(properties.deleted) && properties.deleted.includes(true)) {
+        properties.published = false
+        delete properties.deleted
+        }
+    }
+    if (reverse) {
+        if (properties.published === false) {
+        properties.deleted = [true]
+        delete properties.published
+        }
+    }
 	return properties
 }
 
