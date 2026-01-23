@@ -4,6 +4,8 @@ const renameProperties = {
 	name: 'title',
 	category: 'tags',
 	published: 'date',
+	'syndicate-to': 'syndicate_to',
+	deleted: 'published'
 }
 // 11ty uses the above named properties which are different from the
 // standard mf2 names. Not sure if this is true for all static site
