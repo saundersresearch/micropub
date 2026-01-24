@@ -47,9 +47,9 @@ export const uploadImage = async (file, opts) => {
 export const createContent = async (jf2, opts, client_id) => {
 	const type = postTypes(jf2)
 	if (!jf2 || !type) HTTP.BAD_REQUEST.throw()
-	if (['like', 'bookmark'].includes(type) && !jf2.name) {
-		jf2.name = await getPageTitle(jf2[`${type}-of`])
-	}
+	// if (['like', 'bookmark'].includes(type) && !jf2.name) {
+	// 	jf2.name = await getPageTitle(jf2[`${type}-of`])
+	// }
 	const date = new Date()
 	jf2[!jf2.date && !jf2.published ? 'date' : 'updated'] = date.toISOString()
 
