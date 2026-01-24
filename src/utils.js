@@ -17,6 +17,9 @@ export const pick = (allow, props) => {
 
 export const slugify = (text = '') => text
 	.toLowerCase()
-	.replace(/[^\w- ]+/g, '')
-	.trim()
-	.replace(/ /g, '-')
+	.normalize('NFKD') // Decompose accented characters
+  	.replace(/[\u0300-\u036f]/g, '') // Remove combining diacritical marks
+	.replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with hyphens
+	.replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
+	.replace(/^-+|-+$/g, '') // Trim hyphens from start and end
+	.trim() // Trim whitespace
