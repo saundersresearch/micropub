@@ -145,7 +145,11 @@ export default class MicropubEndpoint {
 			if (!this.#isConfigured()) HTTP.BAD_REQUEST.throw('not configured')
 			if (!this.#isMethodAllowed(req.method)) HTTP.METHOD_NOT_ALLOWED.throw()
 
-			const body = await parseBody(req)
+			try {
+				const body = await parseBody(req)
+			} catch (err) {
+				return HTTP.BAD_REQUEST.throw('JSON is malformed')
+			}
 			const { scope } = await isAuthorized(req, body, this.#options.tokenEndpoint, this.#options.me)
 			if ('GET' === req.method) return await this.#mediaQuery(body)
 
