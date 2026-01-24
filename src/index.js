@@ -109,7 +109,7 @@ export default class MicropubEndpoint {
 
 			if (!slug) HTTP.BAD_REQUEST.throw(`an error occured while processing action "${action}"`)
 			if ('create' == action) {
-				return HTTP.CREATED.send('created', {
+				return HTTP.CREATED.send({'url': slug}, {
 					'Location': slug,
 				})
 			}
@@ -155,7 +155,7 @@ export default class MicropubEndpoint {
 			if (!body.files?.length) HTTP.BAD_REQUEST.throw('no files to upload')
 			const uploaded = await uploadImage(body.files[0], this.#options)
 			if (uploaded) {
-				return HTTP.CREATED.send('created', {
+				return HTTP.CREATED.send({'url': uploaded}, {
 					'Location': uploaded,
 				})
 			}
