@@ -54,7 +54,7 @@ const dataToJson = data => {
 	const entries = Array.from(data.keys()).map(key => {
 		const values = data.getAll(key)
 		const normalizedKey = key.endsWith('[]') ? key.slice(0, -2) : key
-		return [normalizedKey, values]
+		return [normalizedKey, values.length === 1 ? values[0] : values]
 	})
 	return Object.fromEntries(entries)
 }
