@@ -16,15 +16,11 @@ const parseMultipart = async (req) => {
 	const headers = Object.fromEntries(req.headers.entries())
 
 	const addProperty = (store, name, value) => {
-		const isArray = name.endsWith('[]')
-		const key = isArray ? name.slice(0, -2) : name
-		if (isArray) {
-			if (!store[key]) store[key] = []
-			store[key].push(value)
-		} else {
-			store[key] = value
-		}
-	}
+		if (!name) return; // <-- guard against undefined
+		const key = name.endsWith('[]') ? name.slice(0, -2) : name;
+		if (!store[key]) store[key] = [];
+		store[key].push(value);
+	};
 
 	return new Promise((resolve, reject) => {
 		const bb = Busboy({ headers })
