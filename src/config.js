@@ -29,6 +29,7 @@ export default {
 			{ type: 'game', name: 'Game' },
 		],
 	},
+	returnAsList: [ 'syndicate-to', 'category' ], // e.g. ['syndicate-to', 'category'] to always return as arrays in Liquid templates
 	formatSlug: (type = 'note', slug) => `${type}/${slug}`,
 	formatFilename: (dir = 'src', slug) => `${dir.replace(/\/$/, '')}/${slug}.md`,
 	mediaFilename: (dir = 'uploads', filename) => !filename ? null : `${dir.replace(/\/$/, '')}/${Math.round(new Date() / 1000)}_${filename}`,

@@ -90,6 +90,12 @@ export default class MicropubEndpoint {
 			if (!isValidScope(scope, action)) HTTP.FORBIDDEN.throw('token has insufficient scope', 'insufficient_scope')
 
 			const jf2 = toJf2(req.headers.get('content-type'), body)
+			// Replace properties that should always be arrays
+			for (const prop of this.#options.returnAsList) {
+				if (jf2[prop] && !Array.isArray(jf2[prop])) {
+					jf2[prop] = [ jf2[prop] ]
+				}
+			}
 			console.log('jf2')
 			console.log('└─>', jf2)
 
